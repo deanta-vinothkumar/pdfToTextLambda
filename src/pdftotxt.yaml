@@ -9,7 +9,7 @@ Resources:
       FunctionName: pdfToTextLambda
       Handler: lambda_function.lambda_handler
       Runtime: python3.11
-      CodeUri: ./src
+      CodeUri: .
       Description: 'PDF to Text Lambda Function'
       MemorySize: 512
       Timeout: 900
