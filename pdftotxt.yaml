@@ -19,4 +19,4 @@ Resources:
           TARGET_BUCKET: open-search-lmd-sept-response
           CODEBUILD_PROJECT: arn:aws:codebuild:ap-south-1:275214306002:project/lambda-pdftotxt-build
       Layers:
-        - 'arn:aws:lambda:ap-northeast-1:844028273225:layer:tika:1'
+        - 'arn:aws:lambda:ap-south-1:844028273225:layer:tika:1'
