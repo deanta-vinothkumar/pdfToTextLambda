@@ -14,7 +14,7 @@ logger.setLevel(logging.INFO)
 
 
 def lambda_handler(event, context):
-    logger.info('********************** Environment and Event variables are *********************')
+    logger.info('********************** Environment and Event variables vinoth *********************')
     logger.info(os.environ)
     logger.info(event)
     extract_content(event)
