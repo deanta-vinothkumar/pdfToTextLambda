@@ -2,7 +2,7 @@ version: 0.2
 
 env:
   variables:
-    S3_BUCKET: artifacts-bucket-gl
+    S3_BUCKET: open-search-lmd-sept
     SAM_CLI_TELEMETRY: 0   # disables SAM telemetry
 
 phases:
@@ -20,13 +20,13 @@ phases:
 
   build:
     commands:
-      - echo "Building SAM application"
-      - sam build --template-file src/pdftotxt.yaml --build-dir .aws-sam/build
       - echo "Packaging CloudFormation template"
-      - aws cloudformation package \
+      - |
+        aws cloudformation package \
           --template-file .aws-sam/build/template.yaml \
-          --s3-bucket $S3_BUCKET \
+          --s3-bucket ${S3_BUCKET} \
           --output-template-file lambdaoutput.yaml
+
 
 artifacts:
   files:
