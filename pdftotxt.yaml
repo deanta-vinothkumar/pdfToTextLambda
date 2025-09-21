@@ -13,10 +13,10 @@ Resources:
       Description: 'PDF to Text Lambda Function'
       MemorySize: 512
       Timeout: 900
-      Role: 'arn:aws:iam::844028273225:role/lambda_s3'  # Keep as-is unless role changes
+      Role: 'arn:aws:iam::275214306002:role/codebuild-lambda-pdftotxt-build-service-role'
       Environment:
         Variables:
           TARGET_BUCKET: open-search-lmd-sept-response
           CODEBUILD_PROJECT: arn:aws:codebuild:ap-south-1:275214306002:project/lambda-pdftotxt-build
       Layers:
-        - 'arn:aws:lambda:ap-south-1:844028273225:layer:tika:1'
+        - 'arn:aws:lambda:ap-south-1:275214306002:layer:tika:1'
