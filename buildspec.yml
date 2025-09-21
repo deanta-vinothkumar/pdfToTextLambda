@@ -1,27 +1,37 @@
 version: 0.2
 
+env:
+  variables:
+    S3_BUCKET: artifacts-bucket-gl
+    SAM_CLI_TELEMETRY: 0   # disables SAM telemetry
+
 phases:
   install:
     runtime-versions:
       python: 3.10
     commands:
+      - echo "Upgrading AWS CLI and SAM CLI"
       - pip install --upgrade awscli aws-sam-cli
 
   pre_build:
     commands:
       - echo "Validating CloudFormation template"
-      - aws cloudformation validate-template --template-body file://pdftotxt.yaml
+      - aws cloudformation validate-template --template-body file://src/pdftotxt.yaml
 
   build:
     commands:
       - echo "Building SAM application"
-      - sam build
+      - sam build --template-file src/pdftotxt.yaml --build-dir .aws-sam/build
       - echo "Packaging CloudFormation template"
       - aws cloudformation package \
-          --template-file pdftotxt.yaml \
-          --s3-bucket artifacts-bucket-gl \
+          --template-file .aws-sam/build/template.yaml \
+          --s3-bucket $S3_BUCKET \
           --output-template-file lambdaoutput.yaml
 
 artifacts:
   files:
     - lambdaoutput.yaml
+
+cache:
+  paths:
+    - '/root/.cache/pip/**/*'
