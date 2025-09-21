@@ -1,14 +1,27 @@
 version: 0.2
+
 phases:
   install:
     runtime-versions:
       python: 3.10
+    commands:
+      - pip install --upgrade awscli aws-sam-cli
+
+  pre_build:
+    commands:
+      - echo "Validating CloudFormation template"
+      - aws cloudformation validate-template --template-body file://pdftotxt.yaml
+
   build:
     commands:
-      - aws cloudformation package --template-file pdftotxt.yaml --s3-bucket artifacts-bucket-gl --output-template-file lambdaoutput.yaml
+      - echo "Building SAM application"
+      - sam build
+      - echo "Packaging CloudFormation template"
+      - aws cloudformation package \
+          --template-file pdftotxt.yaml \
+          --s3-bucket artifacts-bucket-gl \
+          --output-template-file lambdaoutput.yaml
 
 artifacts:
-  type: zip
   files:
-    - pdftotxt.yaml
     - lambdaoutput.yaml
