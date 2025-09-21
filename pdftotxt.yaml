@@ -8,12 +8,12 @@ Resources:
     Properties:
       FunctionName: pdfToTextLambda
       Handler: lambda_function.lambda_handler
-      Runtime: python3.10
+      Runtime: python3.11
       CodeUri: ./src
       Description: 'PDF to Text Lambda Function'
       MemorySize: 512
       Timeout: 900
-      Role: 'arn:aws:iam::275214306002:role/codebuild-lambda-pdftotxt-build-service-role'
+      Role: 'arn:aws:codebuild:ap-south-1:275214306002:project/lambda-pdftotxt-build'
       Environment:
         Variables:
           TARGET_BUCKET: open-search-lmd-sept-response
